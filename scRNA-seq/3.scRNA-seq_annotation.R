@@ -9,6 +9,7 @@ library(biomaRt)
 library(GO.db)
 library(ggbreak)
 library(Matrix)
+library(reshape2)
 
 set.seed(1234)
 ###gene excluded
