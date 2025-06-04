@@ -52,3 +52,37 @@ For each round of scMTNI analysis, 25 out of 50 subsampled datasets were used pe
 Each parameter combination was repeated for a total of 75 trials across three different beta1/beta2 combinations.
 
 Only TF-target pairs consistently observed in ≥80% of the trials were retained as high-confidence edges.
+
+.
+├── RNA-seq/
+│   ├── [2 scripts for bulk RNA-seq analysis]
+│   └── [3 BED files for gene classification]
+│
+├── chromHMM/
+│   ├── chrom_info.txt          # File list for ChromHMM training
+│   ├── chrom_new.csv           # Feature probability and state annotation from ChromHMM
+│   └── [10 BED files representing chromatin states]
+│
+├── scRNA-seq/
+│   ├── [18 scripts for scRNA-seq analyses: alignment, clustering, annotation, trajectory, DE, CCC, GRN]
+│   └── GRN/
+│       ├── allcontrol_edge.txt.zip   # Combined edges from all control clusters
+│       ├── cluster.txt               # cluster/celltype for the analysis
+│       ├── TF_filter2.txt            # TF used for scMTNI and SCENIC analysis
+│       ├── lineage_tree.txt          # lineage tree for scMTNI analysis
+│       ├── data_subsample.py         # subsample script used in 12.scMTNI_subsample.sh
+│       ├── PreparescMTNIinputfiles.py # the script for scMTNI input file prep used in 13.scMTNI_prep.sh
+│       └── RHKI_edge.txt.zip         # Combined edges from each cluster and treatment condition
+│
+├── 1.bowtie_genome.sh          # Genome indexing for alignment
+├── 2.bowtie.sh                 # Read alignment
+├── 3.chromHMM.sh               # ChromHMM pipeline execution
+├── 4.CT_downstream1.sh         # CUT&Tag downstream processing
+├── 5.CT_plotting.R             # CUT&Tag result visualization
+├── 6.ATAC_downstream.sh        # ATAC-seq downstream processing
+├── 7.ATAC_plotting.R           # ATAC-seq result visualization
+├── 8.MNase_downstream.sh       # MNase-seq downstream processing
+├── 9.MNase-seq_plotting.R      # MNase-seq result visualization
+├── LICENSE
+└── README.md
+
