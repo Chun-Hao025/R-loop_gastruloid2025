@@ -1,0 +1,34 @@
+control	ATAC	N_ATAC_rep1_sub.bam	
+control	ATAC	N_ATAC_rep2_sub.bam	
+control	ATAC	N_ATAC_rep3_sub.bam	
+control	ATAC	N_ATAC_rep4_sub.bam	
+control	H2A.Z	N_H2AZ_rep1_filter.bam	N_IgG_rep1_filter.bam
+control	H2A.Z	N_H2AZ_rep2_filter.bam	N_IgG_rep1_filter.bam
+control	H2A.Z	N_H2AZ_rep3_filter.bam	N_IgG_rep1_filter.bam
+control	H2A.Z	N_H2AZ_rep4_filter.bam	N_IgG_rep1_filter.bam
+control	H3K4me3	N_K4me3_rep1_filter.bam	N_IgG_rep1_filter.bam
+control	H3K4me3	N_K4me3_rep2_filter.bam	N_IgG_rep1_filter.bam
+control	H3K9me3	N_K9_rep1_filter.bam	N_IgG_rep1_filter.bam
+control	H3K9me3	N_K9_rep2_filter.bam	N_IgG_rep1_filter.bam
+control	H3K27me3	N_K27me3_rep1_filter.bam	N_IgG_rep1_filter.bam
+control	H3K27me3	N_K27me3_rep2_filter.bam	N_IgG_rep1_filter.bam
+control	H3K27me3	N_K27me3_rep3_filter.bam	N_IgG_rep1_filter.bam
+control	H3K27me3	N_K27me3_rep4_filter.bam	N_IgG_rep1_filter.bam
+control	H3K27ac	N_K27ac_rep1_filter.bam	N_IgG_rep1_filter.bam
+control	H3K27ac	N_K27ac_rep2_filter.bam	N_IgG_rep1_filter.bam
+control	H3K36me3	N_K36_rep1_filter.bam	N_IgG_rep1_filter.bam
+control	H3K36me3	N_K36_rep2_filter.bam	N_IgG_rep1_filter.bam
+control	H3K36me3	N_K36_rep3_filter.bam	N_IgG_rep1_filter.bam
+control	H3K36me3	N_K36_rep4_filter.bam	N_IgG_rep1_filter.bam
+control	H3.3	N_H3_3_rep1_filter.bam	N_IgG_rep1_filter.bam
+control	H3.3	N_H3_3_rep2_filter.bam	N_IgG_rep2_filter.bam
+control	R-loop	N_MapR_rep1_filter.bam	N_MapR_RnaseA_rep1_filter.bam
+control	R-loop	N_MapR_rep2_filter.bam	N_MapR_RnaseA_rep2_filter.bam
+control	R-loop	N_MapR_rep3_filter.bam	N_MapR_RnaseA_rep3_filter.bam
+control	R-loop	N_MapR_rep4_filter.bam	N_MapR_RnaseA_rep4_filter.bam
+control	H4ac	N_H4ac_rep1_filter.bam	N_IgG_rep1_filter.bam
+control	H4ac	N_H4ac_rep2_filter.bam	N_IgG_rep1_filter.bam
+control	RNAP2	N_RNAPS2_rep1_filter.bam	N_IgG_rep1_filter.bam
+control	RNAP2	N_RNAPS2_rep2_filter.bam	N_IgG_rep1_filter.bam
+control	CTCF	N_CTCF_rep1_filter.bam	N_IgG_rep1_CR_filter.bam
+control	CTCF	N_CTCF_rep2_filter.bam	N_IgG_rep1_CR_filter.bam
