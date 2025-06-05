@@ -169,7 +169,7 @@ loaded via a namespace (and not attached):
 
 ```
 Other package (check the link following these packages to install all dependent packages)
-
+```
 anndata 0.10.9
 bowtie2 2.5.0
 bedtools 2.30.0
@@ -197,4 +197,4 @@ star 2.7.10a
 trimmomatic 0.39
 ucsc-bedgraphtobigwig 472
 umap-learn 0.5.6
-
+```
