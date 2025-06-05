@@ -86,9 +86,9 @@ def frange(start, stop, step):
 
 # Define the parameter ranges
 neighboring_thresholds = range(1, 7, 1)  # 1 to 6 with interval of 1
-pseudotime_thresholds = range(40, 76, 5)  # 40 to 60 with interval of 5
-x_lazy_vals = [round(x, 2) for x in frange(0.95, 0.99, 0.01)]  # 0.95 to 0.99 with interval of 0.01
-alpha_teleport_vals = [round(x, 2) for x in frange(0.95, 0.99, 0.01)]  # 0.95 to 0.99 with interval of 0.01
+pseudotime_thresholds = range(30, 76, 5)  # 40 to 60 with interval of 5
+x_lazy_vals = [round(x, 2) for x in frange(0.90, 0.99, 0.01)]  # 0.95 to 0.99 with interval of 0.01
+alpha_teleport_vals = [round(x, 2) for x in frange(0.90, 0.99, 0.01)]  # 0.95 to 0.99 with interval of 0.01
 
 # List to hold the results
 results = []
@@ -534,7 +534,7 @@ hitting_times = hitting_times * scaling_fac
 ref.obs['pseudotime']=hitting_times
 
 ###For trajectory comparison, first, we constructed the trajectory map from all timepoints in control condition of our data plus publised data
-###`t_diff=4` would equal to 34 hours difference for time adjanceyment matrix trimming for all timepoint data
+###`t_diff=3` would equal to 25 hours difference for time adjanceyment matrix trimming for all timepoint data
 ### Parameters such as alpha_teleport and x_lazy were not quite important here. We would use full graph pyVIA with the potential edges to reconstruct the comprehensive maps.
 
 ##### Define the criteria
