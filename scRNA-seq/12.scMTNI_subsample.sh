@@ -13,20 +13,17 @@ indir=/path/to/GRN/scMTNI/
 Input=${indir}/control/
 filelist=${indir}/cluster.txt
 
-python /path/to/data_subsample.py --filelist $filelist --indir $Input --nseed 10 --fraction 0.5 --start_seed $(((LSB_JOBINDEX-1)*1
-0))
+python /path/to/data_subsample.py --filelist $filelist --indir $Input --nseed 10 --fraction 0.5 --start_seed $(((LSB_JOBINDEX-1)*10))
 
 
 ##RHKI control
 Input=${indir}/RH_control/
 filelist=${indir}/cluster.txt
 
-python /path/to/data_subsample.py --filelist $filelist --indir $Input --nseed 10 --fraction 0.5 --start_seed $(((LSB_JOBINDEX-1)*1
-0))
+python /path/to/data_subsample.py --filelist $filelist --indir $Input --nseed 10 --fraction 0.5 --start_seed $(((LSB_JOBINDEX-1)*10))
 
 ##RHKI Dox
 Input=${indir}/RH_Dox/
 filelist=${indir}/cluster.txt
 
-python /path/to/data_subsample.py --filelist $filelist --indir $Input --nseed 10 --fraction 0.5 --start_seed $(((LSB_JOBINDEX-1)*1
-0))
+python /path/to/data_subsample.py --filelist $filelist --indir $Input --nseed 10 --fraction 0.5 --start_seed $(((LSB_JOBINDEX-1)*10))
