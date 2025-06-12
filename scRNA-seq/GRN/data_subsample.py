@@ -7,8 +7,9 @@ def main(args):
     indir = args.indir + '/'
     frac = args.fraction
     filelist = pd.read_table(args.filelist, header=None)
-    infiles = filelist[1].values
+    ##infiles = filelist[1].values
     cells = filelist[0].values
+    infiles = [os.path.join(indir, f'{d}_count.tsv') for d in cells] 
     start_seed = args.start_seed
 
     for seed in range(start_seed, start_seed + args.nseed):
