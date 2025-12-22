@@ -34,3 +34,15 @@ ggplot(obj5, aes(x=position, y=avg, color=treatment, group=treatment)) +
   geom_line()+geom_vline(xintercept = c(200), linetype="dotted")+
   scale_colour_manual(values=c("black", "red", "deepskyblue1", 'orange'))+facet_wrap(~region)+
   theme(panel.background = element_rect(colour = "black", size=1, fill = "white"), panel.grid = element_line(size=0), axis.line = element_line(size=0), axis.ticks = element_line(size = 1), axis.title = element_text(size = 15), legend.text = element_text(size=15), legend.key.size = unit(0.8,"cm"))
+
+##statistical test
+ATAC_count=read.delim("/path/to/ATAC_region_count.txt") #change to the path to different count file such as nucleosome position 1, 2, 3 with different regions/classes
+ATAC_count=ATAC_count[,c(2,16,20:27)]
+ATAC_count$control_mean=rowMeans(ATAC_H2[,c(3,4,5,6)])
+ATAC_count$Dox_mean=rowMeans(ATAC_H2[,c(7,8,9,10)])
+ATAC_count$control_log=log2(ATAC_H2$control_mean+1)
+ATAC_count$Dox_log=log2(ATAC_H2$Dox_mean+1)
+ATAC_count$delta=ATAC_H2$Dox_mean-ATAC_H2$control_mean
+ATAC_count$delta_log=ATAC_H2$Dox_log-ATAC_H2$control_log
+
+wilcox.test(ATAC_count$delta, mu = 0, alternative = "two.sided")
