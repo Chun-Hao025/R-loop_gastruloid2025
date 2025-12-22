@@ -1,6 +1,7 @@
 This repository contains the scripts used for the following study:
 
-# R-loops promote H2A.Z occupancy and proper differentiation in mouse embryonic stem cells
+# R-loops shape the H2A.Z landscape and promote balanced lineage allocation during differentiation
+
  
 Chun-Hao Chao1 and Thomas G. Fazzio1,2*
 
@@ -14,7 +15,7 @@ Note:
 
 Main Root Directory:
 
-* Scripts provided in the main root directory cover steps from read alignment, data processing, peak calling, to visualization for CUT&Tag, CUT&RUN, MapR, MNase-seq, and ATAC-seq analyses.
+* Scripts provided in the main root directory cover steps from read alignment, data processing, peak calling, to visualization for CUT&Tag, CUT&RUN, MapR, DRIPc-seq(a part of CT analysis pipeline), MNase-seq, and ATAC-seq analyses.
 
 RNA-seq Directory:
 
