@@ -258,16 +258,42 @@ p12=ggplot(K4P_L, aes(x=position, y=mean, group=treatment, color=treatment)) +
 plot=list(p12, p2, p3, p4,p5,p6,p7,p8,p9,p10,p11)
 wrap_plots(plot, nrow=3)
 
-RL=read.csv("/path/to/MapR_TSS.csv", header=T)
-colnames(RL)=c("position", "control_rep1", "control_rep2", "control_rep3", "control_rep4", "RA_rep1", "RA_rep2", "RA_rep3", "RA_rep4", "pA_rep1", "pA_rep2", "pA_rep3", "pA_rep4")
-K=c(rowMeans(RL[,c(2,3,4,5)]), rowMeans(RL[,c(6,7,8,9)]), rowMeans(RL[,c(10,11,12,13)]))
-L=c(rowSds(as.matrix(RL[,c(2,3,4,5)]),useNames = FALSE)/sqrt(4), rowSds(as.matrix(RL[,c(6,7,8,9)]),useNames = FALSE)/sqrt(4), rowSds(as.matrix(RL[,c(10,11,12,13)]),useNames = FALSE)/sqrt(4))
-RL_L=data.frame(rep(RL$position,3),K,L,c(rep("MapR", nrow(RL)), rep("MapR+RNaseA", nrow(RL)), rep("pAMN", nrow(RL))))
-colnames(RL_L)=c("position", "mean", "err", "treatment")
-ggplot(RL_L, aes(x=position, y=mean, group=treatment, color=treatment)) + 
-  geom_errorbar(aes(ymin= mean - err, ymax = mean + err), alpha=0.5, linewidth=0.5, width=2, linetype="solid")+
-  geom_line(linewidth=1, alpha=1)+geom_vline(xintercept = c(0), linetype="dotted")+ylab("Mean of CPM")+xlab("TSS")+ggtitle("MapR")+
-  scale_colour_manual(values=c("black", "red", "deepskyblue1", "darkorange"))+
-  theme(panel.background = element_rect(color = "black", size=1, fill = "white",), panel.grid = element_line(size=0), axis.line = element_line(size=0), axis.text = element_text(size=20, color='black'), axis.text.x = element_text(angle = 0, hjust = 0.5),axis.title.x = element_text(size=0, color='black'), axis.title.y = element_text(size=20, color='black'), axis.ticks = element_line(size = 1), axis.title = element_text(size = 15), legend.text = element_text(size=20), text = element_text(size=20),legend.key.size = unit(0.8,"cm"))
+##boxplot for MapR signal in different chromatin regions
+class=c("active", "bivalent", 'other', "down", 'rest')
+for (i in 1:length(class)){
+  tmp=read.delim(paste0("/path/to/MapR_", class[i],"_count.txt"))
+  tmp=tmp[,c(2,16,20:27)]
+  K=c(rowMeans(tmp[,c(3,4,5,6)]),rowMeans(tmp[,c(7,8,9,10)]))
+  tmp1=data.frame(K)
+  colnames(tmp1)=c("avg")
+  tmp1$type=c(rep("MapR", nrow(tmp)), rep("MapR_RA", nrow(tmp)))
+  tmp1$region=rep(class[i], length(tmp1))
+  if(i==1){
+    obj=tmp1
+  }else{
+    obj=rbind(obj, tmp1)
+  }
+}
+obj$region=factor(obj$region, levels=c('active', 'bivalent', 'other', 'down', 'rest'))
+##my_comparisons <- list( c("active", "bivalent"), c("active", "other"), c("bivalent", "other") )
+ggplot(obj[obj$type %in% c("MapR"),], aes(x=region, y=log2(avg+1), color=region, group=region)) + 
+  #geom_point(alpha=0.5)+
+  geom_boxplot(aes(fill=region), color="black", outlier.alpha = 0.2, outlier.size = 0.2)+
+  scale_colour_manual(values=c("grey", "red", "navyblue", 'orange', "deepskyblue1"))+
+  scale_fill_manual(values=c("grey", "red", "navyblue", 'orange', 'deepskyblue1'))+
+  stat_compare_means(comparisons = my_comparisons)+stat_compare_means(label.y = 10)+## the statistical comparison layer from ggpubr
+  theme(panel.background = element_rect(colour = "black", size=1, fill = "white"), panel.grid = element_line(size=0), axis.line = element_line(size=0), axis.ticks = element_line(size = 1), axis.title = element_text(size = 15), legend.text = element_text(size=15), legend.key.size = unit(0.8,"cm"))
 
 
+##statistical analysis
+Chromatin_feature_count=read.delim("/path/to/chromatin_feature_region_counts.txt")
+Chromatin_feature_count=Chromatin_feature_count[,c(2,16,20:27)] ##select columns for control and Dox replicates, modify based on your data
+
+Chromatin_feature_count$control_mean=rowMeans(Chromatin_feature_count[,c(3,4,5,6)]) ## indicates columns for control replicates
+Chromatin_feature_count$Dox_mean=rowMeans(Chromatin_feature_count[,c(7,8,9,10)])  ## indicates columns for Dox replicates
+Chromatin_feature_count$control_log=log2(Chromatin_feature_count$control_mean+1)
+Chromatin_feature_count$Dox_log=log2(Chromatin_feature_count$Dox_mean+1)
+Chromatin_feature_count$delta=Chromatin_feature_count$Dox_mean-Chromatin_feature_count$control_mean
+Chromatin_feature_count$delta_log=Chromatin_feature_count$Dox_log-Chromatin_feature_count$control_log
+
+wilcox.test(Chromatin_feature_count$delta, mu = 0, alternative = "two.sided") ## report p-value
