@@ -297,3 +297,18 @@ Chromatin_feature_count$delta=Chromatin_feature_count$Dox_mean-Chromatin_feature
 Chromatin_feature_count$delta_log=Chromatin_feature_count$Dox_log-Chromatin_feature_count$control_log
 
 wilcox.test(Chromatin_feature_count$delta, mu = 0, alternative = "two.sided") ## report p-value
+
+
+##DRIPc-seq aggregation plot
+DRIP_TSS=read.delim("/path/to/DRIP_TSS_all.txt") ## The output file from annotatePeaks.pl of TSS region with ±1kb
+DRIP_TSS=as.data.frame(DRIP_TSS)
+colnames(DRIP_TSS)[1]="region"
+DRIP_TSS=DRIP_TSS[,c(1,2,5,8,11,14,17)]
+colnames(DRIP_TSS)=c("region", "DRIP_control_N_rep1", "DRIP_control_RH_rep1", "DRIP_Dox_N_rep1", "Input_control_N_rep1", "Input_control_RH_rep1", "Input_Dox_RH_rep1")
+DRIP_TSS1=DRIP_TSS %>% melt(id.var=c("region"))
+DRIP_TSS1$variable=as.character(DRIP_TSS1$variable)
+
+ggplot(DRIP_TSS1, aes(x=region, y=value, color=variable, group=variable)) + 
+  geom_line(aes(linetype = exoRH))+geom_vline(xintercept = c(0), linetype="dotted")+
+  theme(panel.background = element_rect(colour = "black", size=1, fill = "white"), panel.grid = element_line(size=0), axis.line = element_line(size=0), axis.ticks = element_line(size = 1), axis.title = element_text(size = 15), legend.text = element_text(size=15), legend.key.size = unit(0.8,"cm"))
+
