@@ -150,3 +150,16 @@ ggplot(obj, aes(x=position, y=avg, group=treatment, color=treatment)) +
   geom_line()+geom_vline(xintercept = c(50, 150), linetype="dashed")+xlim(0,200)+
   scale_colour_manual(values=c("black", "red"))+facet_wrap(~region)+
   theme(panel.background = element_rect(colour = "black", size=1, fill = "white"), panel.grid = element_line(size=0), axis.line = element_line(size=0), axis.ticks = element_line(size = 1), axis.title = element_text(size = 15), legend.text = element_text(size=15), legend.key.size = unit(0.8,"cm"))
+
+##statistical test
+MN_mono_Nn1=read.delim("/path/to/MN_mono_class1_Nn1_count.txt") #change to the path to different count file such as nucleosome position 1, 2, 3 with different regions/classes
+MN_mono_Nn1=MN_mono_Nn1[,c(2,16,20:23)]
+
+MN_mono_Nn1$control_mean=rowMeans(MN_mono_Nn1[,c(3,4)])
+MN_mono_Nn1$Dox_mean=rowMeans(MN_mono_Nn1[,c(5,6)])
+MN_mono_Nn1$control_log=log2(MN_mono_Nn1$control_mean+1)
+MN_mono_Nn1$Dox_log=log2(MN_mono_Nn1$Dox_mean+1)
+MN_mono_Nn1$delta=MN_mono_Nn1$Dox_mean-MN_mono_Nn1$control_mean
+MN_mono_Nn1$delta_log=MN_mono_Nn1$Dox_log-MN_mono_Nn1$control_log
+
+wilcox.test(MN_mono_Nn1$delta, mu = 0, alternative = "two.sided")
