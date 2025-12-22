@@ -60,3 +60,6 @@ computeMatrix scale-regions --numberOfProcessors max -S /list/all/bigwig.bw ... 
 #H2AZ_chromHMM_matrix_enrich.tab was used to plot aggregation plot in R
 plotProfile -m ./H2AZ_chromHMM_matrix.gz -out ./H2AZ_chromHMM_new.pdf --numPlotsPerRow 4 --perGroup --outFileNameData ./H2AZ_chromHMM_matrix_enrich.tab
 
+##To get signal counts in the defined regions (50bp around peak center/TSS/etc) for statistical analysis
+annotatePeaks.pl /path/to/region/of/interested.bed mm10 -size 50 -d /list/all/tag/directory/for/chromatin/feature/control/ ... /list/all/tag/directory/for/chromatin/feature/Dox/ ... > chromatin_feature_region_counts.txt
+
