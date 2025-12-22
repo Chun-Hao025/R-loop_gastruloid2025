@@ -97,6 +97,38 @@ write.table(class1, "/path/to/class1.bed", row.names=F, col.names=F, quote=F, se
 write.table(class2, "/path/to/class2.bed", row.names=F, col.names=F, quote=F, sep="\t")
 write.table(class3, "/path/to/class3.bed", row.names=F, col.names=F, quote=F, sep="\t")
 
+##the output of annotatePeak.pl from HOMER contains feature annotation of active promoter, bivalent promoter, and H2A.Z-down peaks
+ann=read.delim("/path/to/HOMER/annotation_output.txt")
+ann_TSS=ann[ann$Distance.to.TSS <=500 & ann$Distance.to.TSS >=-500,] ##define TSS/gene adjancet to differential peaks or regions of ChromHMM features within +/-500bp
+for (i in 1:nrow(K)){
+  if (K$external_gene_name[i] %in% ann_TSS$Gene.Name){
+    K$feature[i]=as.character(ann_TSS$Annotation[match(K$external_gene_name[i], ann_TSS$Gene.Name)])
+  }else{
+    K$feature[i]="other"
+  }
+}
+##Define TSS and nucleosome positions for MNase-seq and ATAC-seq statistical analysis
+for (i in 1:nrow(K)){
+  if (K$strand[i] == "+"){
+    K$tss_start[i]=K$start[i]
+  }else{
+    K$tss_start[i]=K$end[i]
+  }
+}
+for (i in 1:nrow(K)){
+  K$start_Nn1[i]=K$tss_start[i]-225
+  K$end_Nn1[i]=K$tss_start[i]-175
+  K$start_N1[i]=K$tss_start[i]+155
+  K$end_N1[i]=K$tss_start[i]+205
+  K$start_N2[i]=K$tss_start[i]+355
+  K$end_N2[i]=K$tss_start[i]+405
+  K$start_N3[i]=K$tss_start[i]+525
+  K$end_N3[i]=K$tss_start[i]+575
+}
+
+###output bed file for N-1 nucleosome position at the region of interest such as H2A.Z-down TSS or expression levels
+write.table(K[K$feature %in% c("type of interested"),c("chr", "start_Nn1", "end_Nn1", "external_gene_name", "mean_FPKM", "strand")], paste0("/path/to/directory/type_of_interest_postion_minus1.bed"), sep = "\t", quote = FALSE, row.names = FALSE, col.names = FALSE)
+
 ###RSEM output contains raw gene count
 dirs = list.files("/path/to/RSEM/output/", pattern = "RSEM.genes.results")
 files = gsub("^", "/path/to/RSEM/output/", dirs)
