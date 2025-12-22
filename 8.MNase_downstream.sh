@@ -35,3 +35,7 @@ computeMatrix scale-regions --numberOfProcessors max -S /list/to/all/bigwig_sub.
 #*_matrix_enrich.tab was used to plot aggregation plot in R
 plotProfile -m ./MN_mono_chromHMM_matrix.gz -out ./MN_mono_chromHMM.pdf --numPlotsPerRow 4 --perGroup --outFileNameData ./MN_mono_chromHMM_matrix_enrich.tab
 plotProfile -m ./MN_sub_chromHMM_matrix.gz -out ./MN_sub_chromHMM.pdf --numPlotsPerRow 4 --perGroup --outFileNameData ./MN_sub_chromHMM_matrix_enrich.tab
+
+##To get signal counts in the defined regions (50bp around peak center/TSS/nucleosome position etc) for statistical analysis
+annotatePeaks.pl /path/to/region/of/interested.bed mm10 -size 50 -d /list/all/tag/directory/for/MN-mono/control/ ... /list/all/tag/directory/for/MN-mono/Dox/ ... > MN-mono_region_counts.txt
+annotatePeaks.pl /path/to/region/of/interested.bed mm10 -size 50 -d /list/all/tag/directory/for/MN-sub/control/ ... /list/all/tag/directory/for/MN-sub/Dox/ ... > MN-sub_region_counts.txt
