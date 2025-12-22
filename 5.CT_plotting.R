@@ -285,7 +285,7 @@ ggplot(obj[obj$type %in% c("MapR"),], aes(x=region, y=log2(avg+1), color=region,
   theme(panel.background = element_rect(colour = "black", size=1, fill = "white"), panel.grid = element_line(size=0), axis.line = element_line(size=0), axis.ticks = element_line(size = 1), axis.title = element_text(size = 15), legend.text = element_text(size=15), legend.key.size = unit(0.8,"cm"))
 
 
-##statistical analysis
+##statistical analysis at H2A.Z, H3K27ac, H3K27me3 at the region of interested
 Chromatin_feature_count=read.delim("/path/to/chromatin_feature_region_counts.txt")
 Chromatin_feature_count=Chromatin_feature_count[,c(2,16,20:27)] ##select columns for control and Dox replicates, modify based on your data
 
