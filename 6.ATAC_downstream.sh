@@ -34,6 +34,10 @@ mergePeaks -d given control_rep1_peak.bed control_rep2_peak.bed control_rep3_pea
 mergePeaks -d given Dox_rep1_peak.txt.bed Dox_rep2_peak.txt.bed Dox_rep3_peak.txt.bed Dox_rep4_peak.txt.bed -prefix Dox -matrix Dox -venn Dox > Dox_overlap.bed
 ##only keep peak that overlap across all replicates in each condition
 
+##To get signal counts in the defined regions (50bp around peak center/TSS/etc) for statistical analysis
+annotatePeaks.pl /path/to/region/of/interested.bed mm10 -size 50 -d /list/all/tag/directory/for/ATAC/control/ ... /list/all/tag/directory/for/ATAC/Dox/ ... > ATAC_region_counts.txt
+
+
 cat control_ATAC_overlap.bed Dox_ATAC_overlap.bed | sort -k1,1 -k2,2n | bedtools merge -d 200 | bed2pos.pl > ATAC_overlap_merge.txt
 
 annotatePeaks.pl ATAC_overlap_merge.txt mm10 -d /list/all/tag/directory/for/ATAC/control/ /list/all/tag/directory/for/ATAC/Dox/ ... -raw > ATAC_rawcount_peak.txt
